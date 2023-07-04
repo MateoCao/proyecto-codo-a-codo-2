@@ -1,0 +1,88 @@
+.add-contact-shadow {
+    position: fixed;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    font-family: "Abel", sans-serif;
+}
+
+.add-contact-container {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    width: 35vw;
+    background-color: white;
+    justify-content: center;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.add-contact-close {
+    align-self: flex-end;
+    cursor: pointer;
+}
+
+.add-contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+    width: 40rem;
+}
+
+.add-contact-form > label {
+    margin-left: 5px;
+    width: fit-content;
+    color: rgb(82, 112, 232);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 15px;
+}
+
+.add-contact-input {
+    width: 95%;
+    height: 1.3rem;
+    outline: none;
+    padding: 5px;
+    font-size: 1rem;
+    border: none;
+    border-bottom: 2px solid rgb(204, 204, 204);
+    transition: 200ms;
+}
+
+.add-contact-input:focus {
+    width: 100%;
+    border-bottom: 2px solid rgb(45, 74, 190);
+    outline: none;
+}
+
+.add-contact-textarea {
+    min-height: 150px;
+    resize: none;
+    padding: 5px;
+}
+
+.add-contact-form-button {
+    width: 20%;
+    height: 2rem;
+    align-self: center;
+    cursor: pointer;
+    outline: none;
+    background-color: rgb(45, 74, 190);
+    color: white;
+    border: none;
+    margin: 1rem 0;
+    border-radius: 3px;
+    font-size: 1.1rem;
+}
+
+.add-contact-form-button:focus {
+    background-color: rgb(24, 47, 141);
+}

@@ -1,0 +1,10 @@
+footer {
+    display: flex;
+    align-items: center;
+    height: 46px;
+    background-color: #dde4ed;
+}
+
+footer > h4 {
+    margin-left: 15px;
+}

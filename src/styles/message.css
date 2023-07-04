@@ -1,0 +1,32 @@
+.message-container {
+    position: absolute;
+    width: 270px;
+    padding: 10px;
+    top: 0;
+    left: 43%;
+    right: 57%;
+    animation: slideDown 1500ms;
+}
+
+.message-success {
+    background-color: #5fd159;
+}
+
+.message-error {
+    background-color: #e54e4e;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translatey(-38px);
+    }
+
+    to {
+        transform: translatey(0);
+    }
+}
+
+.message-container > span {
+    color: white;
+    font-weight: 600;
+}
