@@ -118,6 +118,11 @@
     font-weight: 500;
 }
 
+.icon {
+    position: relative;
+    top: 3px;
+}
+
 .edit-form {
     margin-top: 10px;
     margin-left: 20px;

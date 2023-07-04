@@ -30,28 +30,28 @@
             <ul class="contact-info" v-show="contactDetails" >
                 
                 <li>
-                    <font-awesome-icon :icon="['fas', 'id-badge']" />
+                    <font-awesome-icon  class="icon" :icon="['fas', 'id-badge']" />
                     <p>{{ selectedContact.id }}</p>
                 </li> 
                 <li>
-                    <font-awesome-icon :icon="['fas', 'phone']" />
+                    <font-awesome-icon  class="icon" :icon="['fas', 'phone']" />
                     <p>{{ selectedContact.phone }}</p>
                 </li>
                 <li>
-                    <font-awesome-icon :icon="['fas', 'envelope']" />
+                    <font-awesome-icon  class="icon" :icon="['fas', 'envelope']" />
                     <p>{{ selectedContact.email }}</p>
                 </li>
                 <li>
-                    <font-awesome-icon :icon="['fas', 'cake-candles']" />
+                    <font-awesome-icon  class="icon" :icon="['fas', 'cake-candles']" />
                     <p>{{ selectedContact.birthday }}</p>
                 </li>
                 
                 <li>
-                    <font-awesome-icon :icon="['fas', 'user']" />
+                    <font-awesome-icon  class="icon" :icon="['fas', 'user']" />
                     <p>{{ selectedContact.nickname }}</p>
                 </li>              
                 <li>
-                    <font-awesome-icon :icon="['fas', 'location-dot']" />
+                    <font-awesome-icon  class="icon" :icon="['fas', 'location-dot']" />
                     <p>{{ selectedContact.adress }}</p>
                 </li>
             </ul>
@@ -75,7 +75,7 @@
                 </div>
                 <div class="delete-btn-container">
                     <button class="contact-button delete-btn" @click="deleteContact">Eliminar</button>
-                    <button class="contact-button edit-btn" @click="this.deleteForm = false">Cancelar</button>
+                    <button class="contact-button edit-btn" @click="closeDeleteForm">Cancelar</button>
                 </div>
             </div>
         </div>
@@ -116,6 +116,9 @@
         },
         openDeleteForm() {
             this.deleteForm = true
+        },
+        closeDeleteForm() {
+            this.deleteForm = false
         }
     }
   }

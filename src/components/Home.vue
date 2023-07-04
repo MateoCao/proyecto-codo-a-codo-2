@@ -18,12 +18,13 @@
                 <ul class="contacts-nav-options">
                     <li @click="toggleAddContactForm">Añadir contacto</li>
                 </ul>
-                
-                <AddContact
+
+            <AddContact
                 v-show="showAddContactForm"
                 @closeContactForm = "showAddContactForm = false" 
                 @addContact="addContact"                
                 />
+                
             </nav>
 
             <ContactsDisplay 
@@ -41,7 +42,9 @@
         @editContact = "editContact"
     />
     </main>
+
     <PageFooter />
+
     <Message 
     v-show="showMessage"
     :message = "message"
@@ -60,7 +63,7 @@ export default {
             showMessage: false,
             selectedContact: [],
             editedContact: [],
-            message: "",
+            message: '',
             messageError: false
         };
     },
@@ -78,10 +81,18 @@ export default {
                     method: 'GET'
                 });
 
-                const data = await response.json();
-                this.contacts = data;
+                if (response.ok) {
+                    const data = await response.json();
+                    this.contacts = data;
+                } else {
+                    console.log('Error al cargar los contactos desde la base de datos.')
+                    this.openMessage('Error al cargar los contactos desde la base de datos. Por favor, recargue la página.')
+                    this.messageError = true
+                }        
             } catch (error) {
-                console.error(error);
+                console.log(error)
+                this.openMessage('Error al cargar los contactos desde la base de datos. Por favor, recargue la página.')
+                this.messageError = true
             }
         },
 
@@ -91,19 +102,28 @@ export default {
                 const response = await fetch(this.url, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json', // Indicar que los datos se enviarán en formato JSON
+                        'Content-Type': 'application/json', 
                     },
-                    body: JSON.stringify(contact), // Convertir el objeto contact a JSON
+                    body: JSON.stringify(contact), 
                 });
 
-                const data = await response.json();
-                const id = data.id;
+                if (response.ok) {
+                    const data = await response.json();
+                    this.openMessage('Contacto añadido exitosamente')
+                    const id = data.id;
 
-                contact.id = id;
-                this.contacts.push(contact);
-                this.toggleAddContactForm();
+                    contact.id = id;
+                    this.contacts.push(contact);
+                    this.toggleAddContactForm();
+                } else {
+                    console.error('Error al añadir el contacto');
+                    this.openMessage('Error añadir el contacto. Por favor, intentelo nuevamente.')
+                    this.messageError = true
+                }         
             } catch (error) {
-                console.error(error);
+                console.log(error)
+                this.openMessage('Error añadir el contacto. Por favor, intentelo nuevamente.')
+                this.messageError = true
             }
         },
 
@@ -121,11 +141,7 @@ export default {
 
                 if (response.ok) {
                     const data = await response.json();
-                    console.log(data);
-                    console.log(editedContact)
                     this.openMessage(data)
-                    
-                    
 
                     // Actualizar el contacto en la lista local
                     const index = this.contacts.findIndex(c => c.id === editedContact.id);
@@ -135,10 +151,12 @@ export default {
                     this.selectedContact = { ...editedContact }; // Actualizar el contacto seleccionado con los cambios guardados
                 } else {
                     console.error('Error al guardar la edición del contacto');
+                    this.openMessage('Error al guardar la edición del contacto. Por favor, intentelo nuevamente.')
+                    this.messageError = true
                 }
             } catch (error) {
-                console.error(error);
-                this.openMessage(error)
+                console.log(error)
+                this.openMessage('Error al guardar la edición del contacto. Por favor, intentelo nuevamente.')
                 this.messageError = true
             }
         },
@@ -146,16 +164,13 @@ export default {
         //DELETE
         async deleteContact(id, editedContact) {
             try {
-                console.log(id)
-                console.log("antes del fetch")
                 const response = await fetch(this.url + `/${id}`, {
                     method: 'DELETE'
                 });
 
                 if (response.ok) {
                     const data = await response.json();
-                    console.log(data);
-                    console.log("despues del fetch")
+                    this.openMessage(data)
                     this.openContact = false;
 
 
@@ -167,11 +182,17 @@ export default {
                     
                 } else {
                     console.error('Error al eliminar el contacto');
+                    this.openMessage('Error al eliminar contacto. Por favor, intentelo nuevamente.')
+                    this.messageError = true
                 }
             } catch (error) {
-                console.error(error);
+                console.log(error)
+                this.openMessage('Error al eliminar contacto. Por favor, intentelo nuevamente.')
+                this.messageError = true
             }
         },
+
+        // Lógica para manejo de componentes
 
         toggleAddContactForm() {
             this.showAddContactForm = !this.showAddContactForm;
@@ -197,7 +218,7 @@ export default {
             setTimeout(() => {
                 this.showMessage = false
                 this.messageError = false
-            }, 5000);
+            }, 4000);
         }
 
     },

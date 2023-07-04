@@ -1,11 +1,12 @@
 .message-container {
     position: absolute;
-    width: 270px;
+    text-align: center;
+    width: 340px;
     padding: 10px;
     top: 0;
-    left: 43%;
-    right: 57%;
-    animation: slideDown 1500ms;
+    left: 40%;
+    right: 60%;
+    animation: slideDown 800ms;
 }
 
 .message-success {
