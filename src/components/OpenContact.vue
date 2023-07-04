@@ -24,7 +24,7 @@
                 <h4 class="contact-details-name">{{ selectedContact.name }}</h4>
                 <div class="contact-btns-container">
                     <button class="contact-button edit-btn" @click="openEditForm" v-show="contactDetails">Editar</button>
-                    <button class="contact-button delete-btn" @click="this.deleteForm = true"  v-show="contactDetails">Eliminar</button>
+                    <button class="contact-button delete-btn" @click="openDeleteForm"  v-show="contactDetails">Eliminar</button>
                 </div>
             </div>
             <ul class="contact-info" v-show="contactDetails" >
@@ -113,6 +113,9 @@
             this.contactDetails = true
 
             this.$emit('closeContact')
+        },
+        openDeleteForm() {
+            this.deleteForm = true
         }
     }
   }
