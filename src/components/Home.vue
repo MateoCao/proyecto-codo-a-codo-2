@@ -114,7 +114,7 @@ export default {
             const index = this.contacts.findIndex(contact => contact.id === editedContact.id);
 
             if (index !== -1) {
-                this.contacts[index] = editedContact;
+                this.contacts[index] = {...editedContact};
             }
 
             this.selectedContact = {...editedContact} ;
