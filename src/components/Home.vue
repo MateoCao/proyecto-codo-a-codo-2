@@ -59,7 +59,7 @@ export default {
         return {
             showAddContactForm: false,
             contacts: [],
-            url:'https://mateocao.pythonanywhere.com/contacts',
+            url:'http://127.0.0.1:5000//contacts',
             openContact: false,
             selectedContact: [],
             editedContact: [],
@@ -117,7 +117,7 @@ export default {
                 this.contacts[index] = editedContact;
             }
 
-            this.selectedContact = editedContact ;
+            this.selectedContact = {...editedContact} ;
         } catch (error) {
             console.error(error);
             this.openMessage(error.message);
