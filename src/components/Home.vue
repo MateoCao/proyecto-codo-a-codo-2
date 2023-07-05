@@ -15,15 +15,13 @@
     <main>
         <section class="contact-section">
             <nav class="contacts-navbar">
-                <ul class="contacts-nav-options">
-                    <li @click="toggleAddContactForm">Añadir contacto</li>
-                </ul>
+                <button @click="toggleAddContactForm" class="add-btn">Añadir contacto</button>
 
             <AddContact
-                v-show="showAddContactForm"
-                @closeContactForm = "showAddContactForm = false" 
-                @addContact="addContact"                
-                />
+            v-show="showAddContactForm"
+            @closeContactForm = "showAddContactForm = false" 
+            @addContact="addContact"                
+            />
                 
             </nav>
 
@@ -58,7 +56,7 @@ export default {
         return {
             showAddContactForm: false,
             contacts: [],
-            url:'https://mateocao.pythonanywhere.com/contacts',
+            url:'http://127.0.0.1:5000//contacts',
             openContact: false,
             showMessage: false,
             selectedContact: [],
@@ -98,13 +96,14 @@ export default {
 
         //POST
         async addContact(contact) {
+            console.log(contact)
             try {
                 const response = await fetch(this.url, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json', 
+                        'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(contact), 
+                    body: JSON.stringify(contact)
                 });
 
                 if (response.ok) {

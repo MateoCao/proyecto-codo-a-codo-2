@@ -5,7 +5,7 @@
 <template>
     <header class="header">
             <div class="logo-container">
-                <h1>Smart Contact</h1>
+                <h1>Contact Smart</h1>
             </div>
     </header>
 </template>

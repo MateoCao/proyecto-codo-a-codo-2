@@ -7,14 +7,17 @@
     left: 40%;
     right: 60%;
     animation: slideDown 800ms;
+    border-radius: 2px;
 }
 
 .message-success {
-    background-color: #5fd159;
+    background-color: #79e7ab;
+    color: #185534;
 }
 
 .message-error {
-    background-color: #e54e4e;
+    background-color: #f96257;
+    color: #8f3530;
 }
 
 @keyframes slideDown {
@@ -28,6 +31,6 @@
 }
 
 .message-container > span {
-    color: white;
-    font-weight: 600;
+    
+    font-weight: 500;
 }

@@ -1,10 +1,27 @@
 footer {
     display: flex;
     align-items: center;
-    height: 46px;
+    justify-content: space-between;
+    height: 60px;
     background-color: #dde4ed;
 }
 
 footer > h4 {
     margin-left: 15px;
+    font-size: 1.2rem;
+}
+
+.icons-container {
+    display: flex;
+    gap: 30px;
+    font-size: 2rem;
+    margin-right: 30px;
+}
+
+.icons-container > a {
+    color: black;
+}
+
+.icon:hover {
+    color: #2b2b2b;
 }

@@ -18,7 +18,9 @@
     margin: 1rem 0;
     display: flex;
     flex-direction: column;
-    width: 45%;
+    width: 40%;
+    min-height: 150px;
+    justify-content: center;
     gap: 1rem;
     background-color: #fcfcfc;
     border: 1px solid #cecece;
@@ -26,6 +28,10 @@
     padding: 8px;
     cursor: pointer;
     transition: 0.5s ease;
+}
+
+.contact > h3, p {
+    margin-left: 10px;
 }
 
 .contact:hover {

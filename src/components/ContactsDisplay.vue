@@ -12,7 +12,7 @@
         <ul class="contacts-container">
             <li class="contact" v-for="contact in contacts" @click="$emit('openContactDetails', contact)">
                 <h3 class="contact-name">{{ contact.name }}</h3>
-                <span class="contact-phone">{{ contact.phone }}</span>
+                <p class="contact-phone">{{ contact.phone }}</p>
                 <p class="contact-email">{{ contact.email }}</p>
             </li>
         </ul>      
