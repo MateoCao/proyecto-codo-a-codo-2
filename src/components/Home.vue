@@ -1,12 +1,13 @@
 <script setup>
-
-  import OpenContact from './OpenContact.vue';
-  import Navbar from './Navbar.vue'
-  import AddContact from './AddContact.vue';
+  import Navbar from './Navbar.vue';
   import ContactsDisplay from './ContactsDisplay.vue';
-  import PageFooter from './PageFooter.vue'
-  import Message from './Message.vue'
-  import "../styles/home.css"
+  import AddContact from './AddContact.vue';
+  import OpenContact from './OpenContact.vue';
+  import PageFooter from './PageFooter.vue';
+  import Message from './Message.vue';
+  import API from '../api/api.js';
+
+  import "../styles/home.css";
 
 </script>
 
@@ -18,16 +19,16 @@
                 <button @click="toggleAddContactForm" class="add-btn">Añadir contacto</button>
 
             <AddContact
-            v-show="showAddContactForm"
-            @closeContactForm = "showAddContactForm = false" 
-            @addContact="addContact"                
+                v-show="showAddContactForm"
+                @closeContactForm = "showAddContactForm = false" 
+                @addContact="addContact"                
             />
                 
             </nav>
 
             <ContactsDisplay 
-            :contacts = "contacts"
-            @openContactDetails="openContactDetails"
+                :contacts = "contacts"
+                @openContactDetails="openContactDetails"
             />
         </section>
 
@@ -44,23 +45,25 @@
     <PageFooter />
 
     <Message 
-    v-show="showMessage"
-    :message = "message"
-    :messageError = "messageError"
+        v-show="showMessage"
+        :message = "message"
+        :messageError = "messageError"
     />
 </template>
 
 <script >
+
 export default {
+    
   data() {
         return {
             showAddContactForm: false,
             contacts: [],
-            url:'http://127.0.0.1:5000//contacts',
+            url:'https://mateocao.pythonanywhere.com/contacts',
             openContact: false,
-            showMessage: false,
             selectedContact: [],
             editedContact: [],
+            showMessage: false,
             message: '',
             messageError: false
         };
@@ -70,125 +73,75 @@ export default {
     },
     methods: {
 
-        //Inicio Fetch
+        // GET
 
-        //GET
         async getContacts() {
-            try {
-                const response = await fetch(this.url, {
-                    method: 'GET'
-                });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    this.contacts = data;
-                } else {
-                    console.log('Error al cargar los contactos desde la base de datos.')
-                    this.openMessage('Error al cargar los contactos desde la base de datos. Por favor, recargue la página.')
-                    this.messageError = true
-                }        
-            } catch (error) {
-                console.log(error)
-                this.openMessage('Error al cargar los contactos desde la base de datos. Por favor, recargue la página.')
-                this.messageError = true
-            }
+        try {
+            const contactsData = await API.getContacts();
+            this.contacts = contactsData;
+        } catch (error) {
+            console.error(error);
+            this.openMessage(error.message);
+            this.messageError = true;
+        }
         },
 
-        //POST
+        // POST
+
         async addContact(contact) {
-            console.log(contact)
-            try {
-                const response = await fetch(this.url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(contact)
-                });
+        try {
+            const contactData = await API.addContact(contact);
+            const id = contactData.id;
+            contact.id = id;
 
-                if (response.ok) {
-                    const data = await response.json();
-                    this.openMessage('Contacto añadido exitosamente')
-                    const id = data.id;
-
-                    contact.id = id;
-                    this.contacts.push(contact);
-                    this.toggleAddContactForm();
-                } else {
-                    console.error('Error al añadir el contacto');
-                    this.openMessage('Error añadir el contacto. Por favor, intentelo nuevamente.')
-                    this.messageError = true
-                }         
-            } catch (error) {
-                console.log(error)
-                this.openMessage('Error añadir el contacto. Por favor, intentelo nuevamente.')
-                this.messageError = true
-            }
+            this.contacts.push(contact);
+            this.toggleAddContactForm();
+            this.openMessage('Contacto añadido exitosamente.');
+        } catch (error) {
+            console.error(error);
+            this.openMessage(error.message);
+            this.messageError = true;
+        }
         },
 
-        //PUT
+        // PUT
+
         async editContact(id, editedContact) {
-            this.openContact = false;
-            try {
-                const response = await fetch(this.url + `/${id}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(editedContact)
-                });
+        try {
+            const contactData = await API.editContact(id, editedContact);
 
-                if (response.ok) {
-                    const data = await response.json();
-                    this.openMessage(data)
+            this.openMessage(contactData);
+            const index = this.contacts.findIndex(contact => contact.id === editedContact.id);
 
-                    // Actualizar el contacto en la lista local
-                    const index = this.contacts.findIndex(c => c.id === editedContact.id);
-                    if (index !== -1) {
-                        this.contacts[index] = editedContact;
-                    }
-                    this.selectedContact = { ...editedContact }; // Actualizar el contacto seleccionado con los cambios guardados
-                } else {
-                    console.error('Error al guardar la edición del contacto');
-                    this.openMessage('Error al guardar la edición del contacto. Por favor, intentelo nuevamente.')
-                    this.messageError = true
-                }
-            } catch (error) {
-                console.log(error)
-                this.openMessage('Error al guardar la edición del contacto. Por favor, intentelo nuevamente.')
-                this.messageError = true
+            if (index !== -1) {
+                this.contacts[index] = editedContact;
             }
+
+            this.selectedContact = editedContact ;
+        } catch (error) {
+            console.error(error);
+            this.openMessage(error.message);
+            this.messageError = true;
+        }
         },
 
-        //DELETE
+        // DELETE
+
         async deleteContact(id, editedContact) {
-            try {
-                const response = await fetch(this.url + `/${id}`, {
-                    method: 'DELETE'
-                });
+        try {
+            const data = await API.deleteContact(id);
 
-                if (response.ok) {
-                    const data = await response.json();
-                    this.openMessage(data)
-                    this.openContact = false;
-
-
-                    const index = this.contacts.findIndex(c => c.id === editedContact.id);
-                    if (index !== -1) {
-                        this.contacts.splice(index, 1);
-                    }
-
-                    
-                } else {
-                    console.error('Error al eliminar el contacto');
-                    this.openMessage('Error al eliminar contacto. Por favor, intentelo nuevamente.')
-                    this.messageError = true
-                }
-            } catch (error) {
-                console.log(error)
-                this.openMessage('Error al eliminar contacto. Por favor, intentelo nuevamente.')
-                this.messageError = true
+            this.openMessage(data);
+            const index = this.contacts.findIndex(c => c.id === editedContact.id);
+            if (index !== -1) {
+                this.contacts.splice(index, 1);
             }
+                this.openContact = false;
+        } catch (error) {
+            console.error(error);
+            this.openMessage(error.message);
+            this.messageError = true;
+        }
         },
 
         // Lógica para manejo de componentes
@@ -200,26 +153,17 @@ export default {
         openContactDetails(contact) {
             this.editedContact = { ...contact };
             this.selectedContact = contact;
-            this.openContact = true
-        },
-
-        closeContactDetails() {
-            this.openContact = false;
-        },
-
-        editarContacto(contacto) {
-            this.selectedContact = contacto;
+            this.openContact = true;
         },
 
         openMessage(content) {
             this.showMessage = true;
             this.message = content;
             setTimeout(() => {
-                this.showMessage = false
-                this.messageError = false
+                this.showMessage = false;
+                this.messageError = false;
             }, 4000);
         }
-
     },
 }
 
