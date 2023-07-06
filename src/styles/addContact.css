@@ -34,7 +34,6 @@
     flex-direction: column;
     gap: 1rem;
     margin-top: 1rem;
-    width: 40rem;
 }
 
 .add-contact-form > label {

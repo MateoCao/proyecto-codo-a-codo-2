@@ -58,12 +58,12 @@
 
             <form action="" v-show="editForm" class="edit-form">
                 <input class="edit-contact-input input-id" v-model="editedContact.id" name="id" id="id" type="number" readonly>
-                <input class="edit-contact-input" v-model="editedContact.name" name="name" id="name" type="text" placeholder="Nombre y apellido">
-                <input class="edit-contact-input" v-model="editedContact.phone" name="phone" id="phone" type="tel" placeholder="5655">
-                <input class="edit-contact-input" v-model="editedContact.email" name="email" id="email" type="email" placeholder="Correo electrónico">
-                <input class="edit-contact-input" v-model="editedContact.birthday" name="birthday" id="birthday" type="date" />
+                <input class="edit-contact-input" v-model="editedContact.name" name="name" id="name" type="text" placeholder="Nombre y apellido" autocomplete="name">
+                <input class="edit-contact-input" v-model="editedContact.phone" name="phone" id="phone" type="tel" placeholder="01123455678" autocomplete="tel">
+                <input class="edit-contact-input" v-model="editedContact.email" name="email" id="email" type="email" placeholder="Correo electrónico" autocomplete="email">
+                <input class="edit-contact-input" v-model="editedContact.birthday" name="birthday" id="birthday" type="date" autocomplete="bday-day">
                 <input class="edit-contact-input" v-model="editedContact.nickname" name="nickname" id="nickname" type="text" placeholder="Apodo">
-                <input class="edit-contact-input" v-model="editedContact.adress" name="adress" id="adress" type="adress" placeholder="Dirección">
+                <input class="edit-contact-input" v-model="editedContact.adress" name="adress" id="adress" type="adress" placeholder="Dirección" autocomplete="address-level1">
                 <input class="edit-contact-input" v-model="editedContact.img" name="img" id="img" type="text" placeholder="https//:imagen.com">
                 <button class="contact-button" type="button" @click="editContact">Guardar</button>
             </form>

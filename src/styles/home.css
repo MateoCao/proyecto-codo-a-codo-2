@@ -1,11 +1,17 @@
 main {
-    width: 55%;
-    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 2rem 0;
 }
 
 .contact-section {
     display: flex;
     flex-direction: column;
+    width: 45%;
+    min-width: 600px;
+    margin: 0  auto;
 }
 
 .contacts-navbar {

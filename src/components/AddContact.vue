@@ -16,17 +16,17 @@
             </div>
             <form ref="contactForm" class="add-contact-form" @submit.prevent="submitForm">
                 <label for="name">Nombre</label>
-                <input class="add-contact-input" v-model="name" name="name" id="name" type="text" placeholder="Juan Pérez" required>
+                <input class="add-contact-input" v-model="name" name="name" id="name" type="text" placeholder="Juan Pérez" required autocomplete="name">
                 <label for="phone">Teléfono</label>
-                <input class="add-contact-input" v-model="phone" name="phone" id="phone" type="tel" placeholder="01123455678" >
+                <input class="add-contact-input" v-model="phone" name="phone" id="phone" type="tel" placeholder="01123455678" autocomplete="tel">
                 <label for="email">Correo electrónico</label>
-                <input class="add-contact-input" v-model="email" name="email" id="email" type="email" placeholder="example@gmail.com">
+                <input class="add-contact-input" v-model="email" name="email" id="email" type="email" placeholder="example@gmail.com" autocomplete="email">
                 <label for="birthday">Fecha de nacimiento</label>
-                <input class="add-contact-input" v-model="birthday" name="birthday" id="birthday" type="date" placeholder="example@gmail.com">
+                <input class="add-contact-input" v-model="birthday" name="birthday" id="birthday" type="date" placeholder="example@gmail.com" autocomplete="bday-day">
                 <label for="nickname">Apodo</label>
                 <input class="add-contact-input" v-model="nickname" name="nickname" id="nickname" type="adress" placeholder="Juanceto01">
                 <label for="adress">Dirección</label>
-                <input class="add-contact-input" v-model="adress" name="adress" id="adress" type="text" placeholder="Calle Falsa 123">
+                <input class="add-contact-input" v-model="adress" name="adress" id="adress" type="text" placeholder="Calle Falsa 123" autocomplete="address-level1">
                 <label for="img">Imagen</label>
                 <input class="add-contact-input" v-model="img" name="img" id="img" type="text" placeholder="https//:imagen.com">
                 <button type="submit" class="add-contact-form-button">Añadir</button>
