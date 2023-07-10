@@ -129,14 +129,17 @@ export default {
 
         async deleteContact(id, editedContact) {
         try {
+            
             const data = await API.deleteContact(id);
-
+            this.openContact = false;
+            
             this.openMessage(data);
+
             const index = this.contacts.findIndex(c => c.id === editedContact.id);
             if (index !== -1) {
                 this.contacts.splice(index, 1);
             }
-                this.openContact = false;
+                
         } catch (error) {
             console.error(error);
             this.openMessage(error.message);

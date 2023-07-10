@@ -28,7 +28,7 @@
                 <label for="adress">Dirección</label>
                 <input class="add-contact-input" v-model="adress" name="adress" id="adress" type="text" placeholder="Calle Falsa 123" autocomplete="address-level1">
                 <label for="img">Imagen</label>
-                <input class="add-contact-input" v-model="img" name="img" id="img" type="text" placeholder="https//:imagen.com">
+                <input class="add-contact-input" v-model="img" name="img" id="img" type="text" placeholder="https://imagen.com">
                 <button type="submit" class="add-contact-form-button">Añadir</button>
             </form>
         </div>
@@ -39,24 +39,24 @@
     export default {
         data() {
             return {
-                name: '',
+                name: null,
                 phone: null,
-                email: '',
+                email: null,
                 birthday: null,
-                nickname: '',
-                adress: '',
-                img: '',
+                nickname: null,
+                adress: null,
+                img: null,
             }   
         },
         methods: {
             resetForm() {
-                this.name = ""
+                this.name = null
                 this.phone = null
-                this.email = ""
+                this.email = null
                 this.birthday = null
-                this.nickname = "" 
-                this.adress = ""
-                this.img =  ""
+                this.nickname = null 
+                this.adress = null
+                this.img =  null
             },
             submitForm() {
             // Validar y procesar los datos del formulario

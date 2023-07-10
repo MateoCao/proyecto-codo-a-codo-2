@@ -9,7 +9,7 @@
 </script>
 
 <template>
-    <div :class="{'message-container': true, 'message-success' : messageError == false, 'message-error' : messageError == true }">
+    <div class='message-container' :class="messageError ? 'message-error' : 'message-success'">
         <span>
             {{ message }}
         </span>
